@@ -6,4 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: ./build.sh 4.5 f42
-      
+      - run: podman image save -o godot-build.tar godot-windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: godot-build
+          path: godot-build.tar
