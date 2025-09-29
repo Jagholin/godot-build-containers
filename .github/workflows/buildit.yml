@@ -1,5 +1,5 @@
 name: build godot for windows
-on: [push]
+on: [workflow_dispatch]
 jobs:
   build-me:
     runs-on: ubuntu-latest
@@ -11,3 +11,13 @@ jobs:
         with:
           name: godot-build
           path: godot-build.tar
+  build-godot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: godot-build
+      - run: podman image load -i godot-build.tar
+      - run: curl -O https://github.com/godotengine/godot/releases/download/4.5-stable/godot-4.5-stable.tar.xz
+      - run: tar -xaf godot-4.5-stable.tar.xz
+      - run: podman run --rm --mount type=bind,src=${{ github.workspace }},dst=/root scons platform=windows
