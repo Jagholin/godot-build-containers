@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - run: ./build-sh 4.5 f42
+      - run: ./build.sh 4.5 f42
       
