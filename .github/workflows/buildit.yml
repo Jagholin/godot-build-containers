@@ -5,7 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - run: ./build.sh 4.5 f42
-      - run: wget https://github.com/godotengine/godot/releases/download/4.5-stable/godot-4.5-stable.tar.xz
-      - run: tar -xaf godot-4.5-stable.tar.xz
-      - run: cd godot-4.5-stable && podman run --rm --mount type=bind,src=.,dst=/root localhost/godot-windows:4.5-f42 scons platform=windows
+      - name: build container with build tools
+        run: ./build.sh 4.5 f42
+      - name: Download Godot 4.5 stable sources
+        run: wget https://github.com/godotengine/godot/releases/download/4.5-stable/godot-4.5-stable.tar.xz
+      - name: extract Godot sources
+        run: tar -xaf godot-4.5-stable.tar.xz
+      - name: build Godot
+        run: cd godot-4.5-stable && podman run --rm --mount type=bind,src=.,dst=/root localhost/godot-windows:4.5-f42 scons platform=windows
+      - name: package release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: godot-4.5-stable/bin/godot*.exe
+          body: Godot for Windows
