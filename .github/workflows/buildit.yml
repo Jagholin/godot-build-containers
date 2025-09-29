@@ -1,0 +1,9 @@
+name: build godot for windows
+on: [push]
+jobs:
+  build-me:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: ./build-sh 4.5 f42
+      
