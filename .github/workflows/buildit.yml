@@ -1,5 +1,7 @@
 name: build godot for windows
-on: [workflow_dispatch]
+on:
+  push:
+    tags: '*'
 jobs:
   build-me:
     runs-on: ubuntu-latest
