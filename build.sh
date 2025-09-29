@@ -52,11 +52,11 @@ podman_build() {
     2>&1 | tee logs/"$1".log
 }
 
-podman_build linux
+#podman_build linux
 podman_build windows
 
-podman_build web
-podman_build android
+#podman_build web
+#podman_build android
 
 XCODE_SDK=16.4
 OSX_SDK=15.5
@@ -86,5 +86,5 @@ if [ ! -e "${files_root}"/MacOSX${OSX_SDK}.sdk.tar.xz ] || [ ! -e "${files_root}
     2>&1 | tee logs/xcode_packer.log
 fi
 
-podman_build osx
-podman_build appleembedded
+#podman_build osx
+#podman_build appleembedded
