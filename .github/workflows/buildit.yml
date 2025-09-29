@@ -6,6 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: ./build.sh 4.5 f42
-      - run: curl -O https://github.com/godotengine/godot/releases/download/4.5-stable/godot-4.5-stable.tar.xz
+      - run: wget https://github.com/godotengine/godot/releases/download/4.5-stable/godot-4.5-stable.tar.xz
       - run: tar -xaf godot-4.5-stable.tar.xz
-      - run: podman run --rm --mount type=bind,src=${{ github.workspace }},dst=/root localhost/godot-windows:4.5-f42 scons platform=windows
+      - run: cd godot-4.5-stable && podman run --rm --mount type=bind,src=.,dst=/root localhost/godot-windows:4.5-f42 scons platform=windows
