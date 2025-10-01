@@ -15,6 +15,10 @@ jobs:
         run: tar -xaf godot-4.5-stable.tar.xz
       - name: build Godot
         run: cd godot-4.5-stable && podman run --rm --mount type=bind,src=.,dst=/root localhost/godot-windows:4.5-f42 scons platform=windows ccflags=-march=core2
+      - name: build Godot export template (release)
+        run: cd godot-4.5-stable && podman run --rm --mount type=bind,src=.,dst=/root localhost/godot-windows:4.5-f42 scons platform=windows target=template_release ccflags=-march=core2
+      - name: build Godot export template (debug)
+        run: cd godot-4.5-stable && podman run --rm --mount type=bind,src=.,dst=/root localhost/godot-windows:4.5-f42 scons platform=windows target=template_debug ccflags=-march=core2
       - name: package release
         uses: softprops/action-gh-release@v2
         with:
